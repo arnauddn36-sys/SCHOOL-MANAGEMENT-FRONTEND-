@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard Professeur — School Management</title>
+
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/teacher.css">
+
+</head>
+
+<body>
+
+    <header class="teacher-header">
+        <h1>Dashboard Professeur</h1>
+        <button id="logout">Déconnexion</button>
+    </header>
+
+    <main>
+
+        <!-- Informations professeur -->
+        <section class="teacher-info">
+            <h2>Bienvenue <span id="teacher-name">Professeur</span></h2>
+            <p>Utilisez le menu ci-dessous pour consulter vos élèves, gérer les notes et les absences.</p>
+        </section>
+
+        <!-- Actions professeur : chaque bouton porte un data-panel utilisé par teacher.js -->
+        <section class="teacher-menu">
+            <h2>Gestion pédagogique</h2>
+            <button data-panel="students">Voir les élèves</button>
+            <button data-panel="grades">Gérer les notes</button>
+            <button data-panel="absences">Gérer les absences</button>
+        </section>
+
+        <!-- CONTENU DYNAMIQUE : rempli par le panneau sélectionné -->
+        <section class="panel" id="content">
+            <div class="empty-state">Choisissez une action ci-dessus pour commencer.</div>
+        </section>
+
+    </main>
+
+    <script type="module" src="../js/teacher.js"></script>
+
+</body>
+
+</html>

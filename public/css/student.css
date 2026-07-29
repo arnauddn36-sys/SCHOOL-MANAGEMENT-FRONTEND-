@@ -1,0 +1,58 @@
+/* =====================================================================
+   STUDENT.CSS
+   Tableau de bord élève : header en vert sauge (couleur de rôle), une
+   fiche d'identité façon "carte d'élève" et deux tableaux (notes,
+   absences) en lecture seule.
+===================================================================== */
+
+.student-header {
+    background-color: var(--accent-green); /* Couleur de rôle : vert sauge */
+    color: var(--white);                     /* Texte blanc sur fond coloré */
+}
+
+.student-header h1 {
+    color: var(--white); /* Titre blanc sur le header coloré */
+    font-size: 20px;       /* Taille cohérente avec les autres dashboards */
+}
+
+.student-header button {
+    background-color: rgba(255,255,255,0.15); /* Bouton discret sur fond coloré */
+    border: 1px solid rgba(255,255,255,0.3);   /* Fine bordure claire */
+}
+
+main {
+    display: flex;             /* Empile les sections verticalement */
+    flex-direction: column;     /* Direction verticale */
+    gap: 24px;                    /* Espace régulier entre les sections */
+}
+
+.student-info, .grades, .absences {
+    background: var(--white);           /* Fond blanc façon carte */
+    border-radius: var(--radius);         /* Coins arrondis */
+    box-shadow: var(--shadow);              /* Ombre douce */
+    padding: 24px 28px;                       /* Espace intérieur */
+    border-left: 4px solid var(--accent-green); /* Onglet coloré cohérent avec le header */
+}
+
+/* Fiche d'identité de l'élève, présentée comme une petite carte scolaire */
+.student-identity {
+    display: grid;                                /* Grille pour aligner les informations */
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* Colonnes adaptatives */
+    gap: 16px;                                       /* Espace entre chaque information */
+    margin-top: 10px;                                  /* Petit espace sous le titre */
+}
+
+.student-identity div span.label {
+    display: block;                 /* Le libellé passe au-dessus de la valeur */
+    font-size: 11px;                  /* Petite taille */
+    text-transform: uppercase;         /* Majuscules façon étiquette */
+    letter-spacing: 0.06em;              /* Espacement des lettres */
+    color: var(--ink-soft);               /* Couleur discrète */
+    margin-bottom: 3px;                     /* Petit espace avant la valeur */
+}
+
+.student-identity div span.value {
+    font-family: var(--font-mono); /* Les valeurs (matricule, âge...) en police mono */
+    font-size: 15px;                  /* Taille légèrement plus grande que le libellé */
+    font-weight: 600;                   /* Semi-gras pour la lisibilité */
+}

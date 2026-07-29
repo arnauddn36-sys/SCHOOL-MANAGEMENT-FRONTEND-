@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Connexion — School Management</title>
+
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/login.css">
+
+</head>
+
+<body>
+
+    <main class="login-container">
+
+        <section class="login-box">
+
+            <h1>SCHOOL MANAGEMENT</h1>
+            <h2>Se connecter à votre espace</h2>
+
+            <form id="loginForm">
+
+                <label for="nom">Nom</label>
+                <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+
+                <label for="prenom">Prénom</label>
+                <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password" placeholder="Votre mot de passe" required>
+
+                <!-- Zone d'affichage des erreurs, masquée par défaut -->
+                <p id="loginError" role="alert" hidden style="color:#c1443c;font-size:13px;"></p>
+
+                <button type="submit">Se connecter</button>
+
+            </form>
+
+            <p class="login-hint">
+                Comptes de démonstration —
+                Admin : Den / Arnaud / 0123 ·
+                Professeur : Bob / LeBon / 1234 ·
+                Élève : Jean / Martin / 0000
+            </p>
+
+        </section>
+
+    </main>
+
+    <script type="module" src="../js/login.js"></script>
+   
+</body>
+
+</html>

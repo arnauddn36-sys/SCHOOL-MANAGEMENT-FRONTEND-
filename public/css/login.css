@@ -1,0 +1,64 @@
+/* =====================================================================
+   LOGIN.CSS
+   Page de connexion : une "couverture de cahier" centrée sur un fond
+   uni, avec un filet de marge rouge en clin d'œil au cahier d'écolier.
+===================================================================== */
+
+.login-container {
+    min-height: 100vh;            /* Occupe toute la hauteur de l'écran */
+    display: flex;                 /* Centre le contenu */
+    align-items: center;            /* Centrage vertical */
+    justify-content: center;         /* Centrage horizontal */
+    padding: 24px;                     /* Marge de sécurité sur petit écran */
+    background:
+        radial-gradient(circle at 15% 20%, rgba(28,42,58,0.05), transparent 45%),
+        var(--paper); /* Fond papier avec un léger halo décoratif */
+}
+
+.login-box {
+    background: var(--white);         /* Fond blanc de la "page de cahier" */
+    width: 100%;                        /* Largeur fluide... */
+    max-width: 440px;                    /* ...jusqu'à cette limite */
+    padding: 44px 40px;                    /* Espace intérieur généreux */
+    border-radius: 14px;                    /* Coins arrondis */
+    box-shadow: 0 20px 50px rgba(28,42,58,0.12); /* Ombre marquée pour détacher la carte */
+    position: relative;                      /* Nécessaire pour positionner le filet rouge */
+    border-left: 6px solid var(--accent-red); /* Le fameux filet de marge du cahier */
+}
+
+.login-box h1 {
+    font-size: 15px;             /* Petit "eyebrow" au-dessus du vrai titre */
+    text-transform: uppercase;    /* Mise en majuscules */
+    letter-spacing: 0.14em;        /* Espacement large façon tampon officiel */
+    color: var(--accent-red);      /* Couleur rouge stylo pour l'accent */
+    font-family: var(--font-body);  /* Police simple, pas la police de titre ici */
+    font-weight: 600;                 /* Semi-gras */
+    margin-bottom: 6px;                /* Petit espace avant le sous-titre */
+}
+
+.login-box h2 {
+    font-family: var(--font-display); /* Grande police de caractère pour le vrai titre */
+    font-size: 30px;                    /* Taille imposante */
+    line-height: 1.15;                   /* Interligne resserré pour un rendu de titre */
+    margin-bottom: 28px;                  /* Espace avant le formulaire */
+    color: var(--ink);                     /* Couleur encre */
+}
+
+.login-box form {
+    max-width: none; /* On annule la largeur max générique pour remplir la carte */
+}
+
+.login-box button[type="submit"] {
+    margin-top: 6px;                 /* Petit espace au-dessus du bouton */
+    background-color: var(--accent-red); /* Bouton principal en rouge stylo */
+    padding: 13px 18px;                    /* Bouton un peu plus grand pour l'action principale */
+}
+
+/* Petite mention d'aide sous le formulaire (comptes de démonstration) */
+.login-hint {
+    margin-top: 22px;              /* Espace au-dessus de la mention */
+    font-size: 12px;                 /* Petite taille discrète */
+    color: var(--ink-soft);           /* Couleur douce */
+    text-align: center;                /* Centré sous le formulaire */
+    line-height: 1.6;                    /* Interligne confortable */
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard Administrateur — School Management</title>
+
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/admin.css">
+
+</head>
+
+<body>
+
+    <header class="admin-header">
+
+        <h1>School Management</h1>
+
+        <div class="admin-info">
+            <span id="admin-name">Administrateur</span>
+            <button id="logout">Déconnexion</button>
+        </div>
+
+    </header>
+
+    <main class="admin-container">
+
+        <!-- MENU ADMIN : chaque bouton porte un data-panel utilisé par admin.js -->
+        <aside class="admin-menu">
+
+            <h2>Menu</h2>
+
+            <ul>
+                <li><button data-panel="stats">Vue d'ensemble</button></li>
+                <li><button data-panel="users">Utilisateurs</button></li>
+                <li><button data-panel="students">Élèves</button></li>
+                <li><button data-panel="teachers">Professeurs</button></li>
+                <li><button data-panel="subjects">Matières</button></li>
+                <li><button data-panel="grades">Notes</button></li>
+                <li><button data-panel="absences">Absences</button></li>
+            </ul>
+
+        </aside>
+
+        <!-- CONTENU PRINCIPAL : rempli dynamiquement par les panneaux JS -->
+        <section class="admin-content" id="content"></section>
+
+    </main>
+
+    <!-- Un seul point d'entrée module : il importe lui-même tous les panneaux nécessaires -->
+    <script type="module" src="../js/admin.js"></script>
+
+</body>
+
+</html>

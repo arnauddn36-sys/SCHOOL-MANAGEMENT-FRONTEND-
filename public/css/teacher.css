@@ -1,0 +1,54 @@
+/* =====================================================================
+   TEACHER.CSS
+   Tableau de bord professeur : header en bleu ardoise (distinct du bleu
+   encre admin) pour identifier le rôle d'un coup d'œil, puis des
+   sections empilées en cartes.
+===================================================================== */
+
+.teacher-header {
+    background-color: var(--accent-blue); /* Couleur de rôle : bleu ardoise */
+    color: var(--white);                    /* Texte blanc sur fond coloré */
+}
+
+.teacher-header h1 {
+    color: var(--white);  /* Le titre reste blanc sur le header coloré */
+    font-size: 20px;         /* Taille cohérente avec les autres dashboards */
+}
+
+.teacher-header button {
+    background-color: rgba(255,255,255,0.15); /* Bouton discret sur fond coloré */
+    border: 1px solid rgba(255,255,255,0.3);   /* Fine bordure claire */
+}
+
+main {
+    display: flex;             /* Empile les sections verticalement */
+    flex-direction: column;     /* Direction verticale */
+    gap: 24px;                    /* Espace régulier entre les sections */
+}
+
+.teacher-info, .teacher-menu, .students-list, .panel {
+    background: var(--white);          /* Fond blanc de chaque section, façon carte */
+    border-radius: var(--radius);        /* Coins arrondis standard */
+    box-shadow: var(--shadow);             /* Ombre douce */
+    padding: 24px 28px;                      /* Espace intérieur */
+    border-left: 4px solid var(--accent-blue); /* Onglet coloré cohérent avec le header */
+}
+
+.teacher-menu {
+    display: flex;        /* Aligne les boutons d'action */
+    flex-wrap: wrap;         /* Passe à la ligne sur petit écran */
+    gap: 12px;                 /* Espace entre les boutons */
+}
+
+.teacher-menu h2 {
+    width: 100%; /* Le titre prend toute la largeur avant les boutons */
+}
+
+/* Formulaire d'ajout/modification de note affiché dans une carte dédiée */
+.inline-form-card {
+    background: #fbf9f2;                 /* Fond légèrement teinté pour distinguer le formulaire */
+    border: 1px dashed var(--paper-line);  /* Bordure en pointillés façon brouillon */
+    border-radius: var(--radius);            /* Coins arrondis */
+    padding: 20px;                             /* Espace intérieur */
+    margin-top: 16px;                           /* Espace au-dessus du formulaire */
+}

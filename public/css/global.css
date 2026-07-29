@@ -1,0 +1,258 @@
+/* =====================================================================
+   GLOBAL.CSS
+   Design system commun à toutes les pages : couleurs, typographies,
+   boutons, tableaux, formulaires, cartes. Le thème s'inspire du cahier
+   d'école (papier crème, filet rouge de marge, encre bleu nuit) mais
+   avec une exécution sobre et actuelle plutôt que rétro.
+===================================================================== */
+
+/* Import des polices : Fraunces (titres), Inter (texte), IBM Plex Mono (chiffres/identifiants) */
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap");
+
+:root {
+    /* ---- Couleurs de la charte ---- */
+    --ink: #1c2a3a;          /* Bleu-encre profond : sidebar, header, titres */
+    --ink-soft: #52627a;     /* Bleu-gris : texte secondaire */
+    --paper: #faf6ec;        /* Papier crème : fond de page */
+    --paper-line: #e6ddc6;   /* Ligne de cahier : bordures discrètes */
+    --white: #ffffff;        /* Blanc pur : cartes et champs */
+    --accent-red: #c1443c;   /* Rouge stylo : accents, alertes, marge */
+    --accent-green: #4f7a63; /* Vert sauge : succès, validation */
+    --accent-gold: #c99a3d;  /* Or/craie : mise en valeur, statistiques */
+    --accent-blue: #3b6ea5;  /* Bleu ardoise : lien secondaire */
+
+    /* ---- Typographie ---- */
+    --font-display: "Fraunces", serif;      /* Police des titres */
+    --font-body: "Inter", sans-serif;       /* Police du texte courant */
+    --font-mono: "IBM Plex Mono", monospace; /* Police des identifiants/chiffres */
+
+    /* ---- Rayons et ombres ---- */
+    --radius: 10px;                                  /* Arrondi standard des cartes/boutons */
+    --shadow: 0 6px 20px rgba(28, 42, 58, 0.08); 
+      /* Ombre douce sous les cartes */
+}
+
+/* =========================
+   RESET GENERAL
+========================= */
+
+* {
+    margin: 0;              /* On enlève les marges par défaut du navigateur */
+    padding: 0;              /* On enlève les paddings par défaut du navigateur */
+    box-sizing: border-box;  /* Les paddings/bordures sont inclus dans la largeur/hauteur */
+}
+
+html {
+    scroll-behavior: smooth; /* Défilement doux lors des ancrages internes */
+}
+
+body {
+    font-family: var(--font-body);  /* Police de texte par défaut */
+    background-color: var(--paper); /* Fond "papier" sur toutes les pages */
+    color: var(--ink);               /* Couleur de texte par défaut */
+    min-height: 100vh;                /* La page occupe au moins toute la hauteur d'écran */
+    line-height: 1.5;                 /* Interligne confortable pour la lecture */
+}
+
+/* Respecte la préférence utilisateur "réduire les animations" */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;    /* Quasiment aucune animation */
+        transition-duration: 0.01ms !important;    /* Quasiment aucune transition */
+    }
+}
+
+/* =========================
+   TITRES
+========================= */
+
+h1, h2, h3 {
+    font-family: var(--font-display); /* Les titres utilisent la police serif de caractère */
+    font-weight: 600;                  /* Graisse mi-forte pour un rendu élégant */
+    color: var(--ink);                 /* Titres en encre foncée */
+}
+
+h1 { font-size: 26px; letter-spacing: -0.01em; } /* Grand titre de page */
+h2 { font-size: 20px; margin-bottom: 18px; }      /* Titre de section */
+h3 { font-size: 16px; margin-bottom: 6px; }        /* Petit titre de carte */
+
+p  { color: var(--ink-soft); } /* Les paragraphes utilisent une teinte plus douce */
+
+/* =========================
+   FOCUS CLAVIER (accessibilité)
+========================= */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 3px solid var(--accent-blue); /* Contour visible au clavier */
+    outline-offset: 2px;                    /* Petit espace entre l'élément et le contour */
+}
+
+/* =========================
+   BOUTONS GENERAUX
+========================= */
+
+button {
+    font-family: var(--font-body);     /* Police cohérente avec le reste du texte */
+    border: none;                       /* Pas de bordure par défaut */
+    padding: 11px 18px;                 /* Espace intérieur confortable */
+    border-radius: 8px;                 /* Coins arrondis doux */
+    cursor: pointer;                    /* Curseur "main" au survol */
+    background-color: var(--ink);       /* Fond bleu-encre par défaut */
+    color: var(--white);                /* Texte blanc */
+    font-size: 14px;                    /* Taille de texte lisible */
+    font-weight: 500;                   /* Légèrement en gras */
+    transition: transform 0.15s ease, opacity 0.15s ease; /* Petite animation au survol */
+}
+
+button:hover {
+    opacity: 0.88;              /* Assombrit légèrement le bouton au survol */
+    transform: translateY(-1px); /* Léger décollement pour donner du relief */
+}
+
+button:active {
+    transform: translateY(0); /* Le bouton "s'enfonce" au clic */
+}
+
+/* Variante bouton discret (annuler, secondaire) */
+button.secondary {
+    background-color: var(--white);         /* Fond blanc */
+    color: var(--ink);                        /* Texte foncé */
+    border: 1px solid var(--paper-line);      /* Bordure fine couleur cahier */
+}
+
+/* Variante bouton danger (suppression) */
+button.danger {
+    background-color: var(--accent-red); /* Fond rouge stylo */
+}
+
+/* =========================
+   FORMULAIRES
+========================= */
+
+form {
+    display: flex;             /* Empile les champs verticalement */
+    flex-direction: column;    /* Direction verticale */
+    gap: 14px;                  /* Espace régulier entre chaque champ */
+    max-width: 420px;           /* Largeur raisonnable pour la lisibilité */
+}
+
+label {
+    font-size: 13px;             /* Petite étiquette au-dessus du champ */
+    font-weight: 600;             /* Légèrement en gras pour se distinguer */
+    color: var(--ink-soft);       /* Couleur douce */
+    margin-bottom: -6px;          /* Rapproche l'étiquette de son champ */
+}
+
+input, select {
+    font-family: var(--font-body); /* Police cohérente */
+    padding: 11px 14px;              /* Espace intérieur du champ */
+    border-radius: 8px;              /* Coins arrondis */
+    border: 1px solid var(--paper-line); /* Bordure couleur "ligne de cahier" */
+    background-color: var(--white);   /* Fond blanc du champ */
+    font-size: 14px;                   /* Taille de texte lisible */
+    color: var(--ink);                  /* Couleur du texte saisi */
+}
+
+input:focus, select:focus {
+    border-color: var(--accent-blue); /* La bordure devient bleue au focus */
+}
+
+/* =========================
+   CARTES
+========================= */
+
+.card {
+    background-color: var(--white); /* Fond blanc de la carte */
+    padding: 20px;                    /* Espace intérieur */
+    border-radius: var(--radius);     /* Coins arrondis standard */
+    box-shadow: var(--shadow);         /* Ombre douce */
+    border-left: 4px solid var(--accent-gold); /* Filet coloré façon onglet de classeur */
+}
+
+.cards {
+    display: grid;                                       /* Grille responsive */
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Colonnes qui s'adaptent */
+    gap: 16px;                                             /* Espace entre les cartes */
+    margin-top: 10px;                                       /* Petit espace au-dessus */
+}
+
+/* =========================
+   TABLEAUX (style registre / cahier de notes)
+========================= */
+
+table {
+    width: 100%;                        /* Le tableau occupe toute la largeur disponible */
+    border-collapse: collapse;          /* Fusionne les bordures pour un rendu net */
+    background-color: var(--white);     /* Fond blanc du tableau */
+    border-radius: var(--radius);       /* Coins arrondis */
+    overflow: hidden;                    /* Les coins arrondis coupent le contenu qui dépasse */
+    box-shadow: var(--shadow);            /* Légère ombre pour détacher le tableau du fond */
+}
+
+thead {
+    background-color: var(--ink); /* En-tête en bleu-encre, comme une page de garde */
+}
+
+thead th {
+    color: var(--white);       /* Texte blanc sur l'en-tête sombre */
+    text-align: left;           /* Alignement à gauche */
+    padding: 13px 16px;          /* Espace intérieur confortable */
+    font-size: 12px;             /* Petite taille */
+    text-transform: uppercase;   /* Majuscules pour un effet "étiquette" */
+    letter-spacing: 0.04em;       /* Espacement des lettres pour la lisibilité en majuscules */
+}
+
+tbody td {
+    padding: 12px 16px;                        /* Espace intérieur des cellules */
+    border-bottom: 1px solid var(--paper-line); /* Ligne fine façon cahier réglé */
+    font-size: 14px;                             /* Taille de texte lisible */
+}
+
+tbody tr:last-child td {
+    border-bottom: none; /* Pas de ligne après la dernière rangée */
+}
+
+tbody tr:hover {
+    background-color: #fbf9f2; /* Léger surlignage au survol de la ligne */
+}
+
+/* Les nombres (notes, ids, matricules) utilisent la police mono pour un alignement net */
+td.mono, span.mono {
+    font-family: var(--font-mono);
+}
+
+/* Petite pastille colorée pour les statuts (ex: "Justifié" / "Non-justifié") */
+.badge {
+    display: inline-block;      /* Permet le padding autour du texte */
+    padding: 4px 10px;            /* Espace intérieur de la pastille */
+    border-radius: 999px;         /* Forme de pilule */
+    font-size: 12px;               /* Petite taille de texte */
+    font-weight: 600;               /* Texte en gras */
+}
+
+.badge.ok    { background: #e8f0ea; color: var(--accent-green); } /* Statut positif */
+.badge.warn  { background: #f7e9e8; color: var(--accent-red); }    /* Statut négatif */
+
+/* =========================
+   CONTENU PRINCIPAL
+========================= */
+
+main {
+    padding: 30px 40px; /* Espacement autour du contenu principal */
+}
+
+/* =========================
+   ETATS VIDES / CHARGEMENT
+========================= */
+
+.empty-state {
+    background: var(--white);           /* Fond blanc comme une carte */
+    border: 1px dashed var(--paper-line); /* Bordure en pointillés façon brouillon */
+    border-radius: var(--radius);         /* Coins arrondis */
+    padding: 30px;                          /* Espace intérieur généreux */
+    text-align: center;                      /* Texte centré */
+    color: var(--ink-soft);                   /* Texte discret */
+}
