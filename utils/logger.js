@@ -1,21 +1,21 @@
 import fs from "fs";
 import path from "path";
 
-const logDir = path.resolve("logs");
-const logFile = path.join(logDir, "app.log");
+const logFolder = "./logs";
+const logFile = path.join(logFolder, "app.log");
 
-if (!fs.existsSync(logDir)) {
-    fs.mkdirSync(logDir);
+// Créer le dossier logs s'il n'existe pas
+if (!fs.existsSync(logFolder)) {
+    fs.mkdirSync(logFolder);
 }
 
-if (!fs.existsSync(logFile)) {
-    fs.writeFileSync(logFile, "");
-}
+// Fonction de journalisation
+export function logger(message) {
 
-export function log(action, user = "SYSTEM") {
-    const time = new Date().toISOString();
-    const line = `[${time}] ${action} - ${user}\n`;
+    const date = new Date().toLocaleString();
 
-    fs.appendFileSync(logFile, line);
-    console.log(line);
+    const text = `[${date}] ${message}\n`;
+
+    fs.appendFileSync(logFile, text);
+
 }

@@ -2,49 +2,81 @@
 <html lang="fr">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Connexion — School Management</title>
 
+    <!-- FontAwesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Styles CSS -->
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/login.css">
-
 </head>
 
-<body>
+<body class="login-wrapper">
 
     <main class="login-container">
 
+        <!-- EN-TÊTE AU-DESSUS DE LA CARTE DE CONNEXION -->
+        <header class="hero-header">
+            <h1 class="hero-title">BIENVENUE DANS VOTRE ESPACE DE GESTION SCOLAIRE</h1>
+            <p class="hero-subtitle">Une solution simple pour administrer votre établissement scolaire.</p>
+            
+            <div class="hero-tags">
+                <span class="tag"><i class="fa-solid fa-user-shield"></i> Administration</span>
+                <span class="tag-dot">•</span>
+                <span class="tag"><i class="fa-solid fa-chalkboard-user"></i> Enseignants</span>
+                <span class="tag-dot">•</span>
+                <span class="tag"><i class="fa-solid fa-graduation-cap"></i> Élèves</span>
+                <span class="tag-dot">•</span>
+                <span class="tag"><i class="fa-solid fa-file-pen"></i> Notes</span>
+                <span class="tag-dot">•</span>
+                <span class="tag"><i class="fa-solid fa-chart-line"></i> Statistiques</span>
+            </div>
+        </header>
+
+        <!-- CARTE DE CONNEXION NÉON -->
         <section class="login-box">
 
-            <h1>SCHOOL MANAGEMENT</h1>
-            <h2>Se connecter à votre espace</h2>
+            <div class="user-avatar">
+                <i class="fa-solid fa-user-shield"></i>
+            </div>
 
-            <form id="loginForm">
+            <div class="brand-header">
+                <h1>SCHOOL MANAGEMENT</h1>
+                <h2>Se connecter à votre espace</h2>
+            </div>
 
-                <label for="nom">Nom</label>
-                <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+            <form id="loginForm" class="neon-form" autocomplete="off">
 
-                <label for="prenom">Prénom</label>
-                <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+                <div class="input-field">
+                    <i class="fa-regular fa-id-card"></i>
+                    <input type="text" id="nom" name="nom" placeholder="Votre nom" required autocomplete="off">
+                </div>
 
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" placeholder="Votre mot de passe" required>
+                <div class="input-field">
+                    <i class="fa-regular fa-user"></i>
+                    <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required autocomplete="off">
+                </div>
 
-                <!-- Zone d'affichage des erreurs, masquée par défaut -->
-                <p id="loginError" role="alert" hidden style="color:#c1443c;font-size:13px;"></p>
+                <div class="input-field">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="password" name="password" placeholder="Votre mot de passe" required autocomplete="new-password">
+                </div>
 
-                <button type="submit">Se connecter</button>
+                <!-- Zone d'erreur dynamique -->
+                <p id="loginError" role="alert" hidden style="color:#ff5252; font-size:13px; text-align:center; margin-bottom:12px;"></p>
+
+                <button type="submit" class="btn-submit">Se connecter</button>
 
             </form>
 
             <p class="login-hint">
-                Comptes de démonstration —
-                Admin : Den / Arnaud / 0123 ·
-                Professeur : Bob / LeBon / 1234 ·
-                Élève : Jean / Martin / 0000
+                Comptes de démonstration —<br>
+                <span>Admin :</span> Den / Arnaud / 0123 ·
+                <span>Professeur :</span> Bob / LeBon / 1234 ·
+                <span>Élève :</span> Jean / Martin / 0000
             </p>
 
         </section>
@@ -52,7 +84,7 @@
     </main>
 
     <script type="module" src="../js/login.js"></script>
-   
+
 </body>
 
 </html>

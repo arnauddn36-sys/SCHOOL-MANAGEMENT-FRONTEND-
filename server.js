@@ -13,6 +13,7 @@ import subjectRoutes from "./routes/subjectRoutes.js";
 import gradeRoutes from "./routes/gradeRoutes.js";
 import studentRoutes from "./routes/studentRoutes.js";
 import absenceRoutes from "./routes/absenceRoutes.js";
+import { logger } from "./utils/logger.js";
 
 // Création du serveur Express
 const app = express();
@@ -85,6 +86,7 @@ app.get("/", (req, res) => {
 const PORT = 3000;
 
 app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Serveur démarré avec succès !`);
-    console.log(`PC : http://localhost:${PORT}`);
+
+    console.log(`Serveur lancé sur le port: http://localhost:${PORT}`);
+
 });

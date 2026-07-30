@@ -1,64 +1,339 @@
 /* =====================================================================
-   LOGIN.CSS
-   Page de connexion : une "couverture de cahier" centrée sur un fond
-   uni, avec un filet de marge rouge en clin d'œil au cahier d'écolier.
+   LOGIN.CSS - THÈME NÉON PRO (ORANGE / VERT ÉMERAUDE / BLANC)
 ===================================================================== */
 
-.login-container {
-    min-height: 100vh;            /* Occupe toute la hauteur de l'écran */
-    display: flex;                 /* Centre le contenu */
-    align-items: center;            /* Centrage vertical */
-    justify-content: center;         /* Centrage horizontal */
-    padding: 24px;                     /* Marge de sécurité sur petit écran */
-    background:
-        radial-gradient(circle at 15% 20%, rgba(28,42,58,0.05), transparent 45%),
-        var(--paper); /* Fond papier avec un léger halo décoratif */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --neon-orange: #ff6b00;
+  --neon-green: #00e676;
+  --neon-white: #ffffff;
+  --neon-bg: #080c14;
+  --neon-card-bg: rgba(15, 23, 42, 0.85);
+  
+  --orange-glow: rgba(255, 107, 0, 0.35);
+  --green-glow: rgba(0, 230, 118, 0.35);
 }
 
+/* 1. Surcharge du Body */
+body.login-wrapper {
+  margin: 0;
+  padding: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--neon-bg) !important;
+}
+
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: 
+    radial-gradient(circle at 15% 15%, var(--orange-glow) 0%, transparent 40%),
+    radial-gradient(circle at 85% 85%, var(--green-glow) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, #0d1527 0%, var(--neon-bg) 100%);
+}
+
+/* 2. Carte Néon Pro */
 .login-box {
-    background: var(--white);         /* Fond blanc de la "page de cahier" */
-    width: 100%;                        /* Largeur fluide... */
-    max-width: 440px;                    /* ...jusqu'à cette limite */
-    padding: 44px 40px;                    /* Espace intérieur généreux */
-    border-radius: 14px;                    /* Coins arrondis */
-    box-shadow: 0 20px 50px rgba(28,42,58,0.12); /* Ombre marquée pour détacher la carte */
-    position: relative;                      /* Nécessaire pour positionner le filet rouge */
-    border-left: 6px solid var(--accent-red); /* Le fameux filet de marge du cahier */
+  width: 100%;
+  max-width: 420px;
+  padding: 40px 32px;
+  background: var(--neon-card-bg) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px !important;
+  
+  border: 1.5px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.6),
+    0 0 25px var(--orange-glow);
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: all 0.4s ease;
+}
+
+.login-box:hover {
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.8),
+    0 0 30px var(--green-glow),
+    inset 0 0 15px rgba(255, 107, 0, 0.2);
+}
+
+/* 3. Avatar Néon */
+.user-avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255,107,0,0.15) 0%, rgba(0,230,118,0.15) 100%);
+  border: 2px solid var(--neon-orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: var(--neon-white);
+  margin-bottom: 20px;
+  box-shadow: 0 0 15px var(--orange-glow);
+}
+
+/* 4. En-tête */
+.brand-header {
+  text-align: center;
+  margin-bottom: 28px;
 }
 
 .login-box h1 {
-    font-size: 15px;             /* Petit "eyebrow" au-dessus du vrai titre */
-    text-transform: uppercase;    /* Mise en majuscules */
-    letter-spacing: 0.14em;        /* Espacement large façon tampon officiel */
-    color: var(--accent-red);      /* Couleur rouge stylo pour l'accent */
-    font-family: var(--font-body);  /* Police simple, pas la police de titre ici */
-    font-weight: 600;                 /* Semi-gras */
-    margin-bottom: 6px;                /* Petit espace avant le sous-titre */
+  font-size: 1.1rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 2px !important;
+  color: var(--neon-orange) !important;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  text-shadow: 0 0 10px var(--orange-glow);
 }
 
 .login-box h2 {
-    font-family: var(--font-display); /* Grande police de caractère pour le vrai titre */
-    font-size: 30px;                    /* Taille imposante */
-    line-height: 1.15;                   /* Interligne resserré pour un rendu de titre */
-    margin-bottom: 28px;                  /* Espace avant le formulaire */
-    color: var(--ink);                     /* Couleur encre */
+  font-size: 0.9rem !important;
+  font-weight: 400 !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+  margin-bottom: 0 !important;
 }
 
-.login-box form {
-    max-width: none; /* On annule la largeur max générique pour remplir la carte */
+/* 5. ANNULATION DU FOND BLANC DE GLOBAL.CSS */
+.login-box form,
+.login-box form#loginForm {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  display: flex;
+  flex-direction: column;
+  gap: 0 !important;
 }
 
+/* 6. Champs de Saisie (Nom, Prénom, Password) */
+.input-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 22px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 8px;
+  transition: all 0.3s ease;
+}
+
+.input-field i {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-right: 12px;
+  width: 20px;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+.input-field input,
+.login-box form input {
+  width: 100% !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  font-size: 0.95rem !important;
+  color: var(--neon-white) !important;
+  font-weight: 500 !important;
+  box-shadow: none !important;
+  padding: 6px 0 !important;
+  border-radius: 0 !important;
+}
+
+.input-field input::placeholder {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Effet au survol/clic des champs (devient Vert Émeraude) */
+.input-field:focus-within {
+  border-bottom-color: var(--neon-green);
+  box-shadow: 0 4px 12px -2px var(--green-glow);
+}
+
+.input-field:focus-within i {
+  color: var(--neon-green);
+  text-shadow: 0 0 8px var(--neon-green);
+}
+
+/* 7. Bouton de Connexion */
+.login-box button.btn-submit,
 .login-box button[type="submit"] {
-    margin-top: 6px;                 /* Petit espace au-dessus du bouton */
-    background-color: var(--accent-red); /* Bouton principal en rouge stylo */
-    padding: 13px 18px;                    /* Bouton un peu plus grand pour l'action principale */
+  width: 100% !important;
+  padding: 14px !important;
+  border: none !important;
+  border-radius: 30px !important;
+  background: linear-gradient(135deg, var(--neon-orange) 0%, #e05300 50%, var(--neon-green) 100%) !important;
+  background-size: 200% auto !important;
+  color: var(--neon-white) !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.4s ease !important;
+  box-shadow: 0 6px 20px var(--orange-glow) !important;
+  margin-top: 10px;
 }
 
-/* Petite mention d'aide sous le formulaire (comptes de démonstration) */
+.login-box button.btn-submit:hover,
+.login-box button[type="submit"]:hover {
+  background-position: right center !important;
+  box-shadow: 0 6px 24px var(--green-glow) !important;
+  transform: translateY(-2px);
+}
+
+/* 8. Comptes de démonstration */
 .login-hint {
-    margin-top: 22px;              /* Espace au-dessus de la mention */
-    font-size: 12px;                 /* Petite taille discrète */
-    color: var(--ink-soft);           /* Couleur douce */
-    text-align: center;                /* Centré sous le formulaire */
-    line-height: 1.6;                    /* Interligne confortable */
+  margin-top: 28px;
+  font-size: 0.75rem !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.login-hint span {
+  color: var(--neon-green);
+  font-weight: 600;
+}
+
+/* =====================================================================
+   SURCHARGE DES TABLEAUX EN STYLE NÉON
+===================================================================== */
+
+.login-box table,
+.login-container table {
+  background-color: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5) !important;
+  color: var(--neon-white) !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
+.login-box th,
+.login-container th {
+  background-color: rgba(255, 107, 0, 0.15) !important; /* Fond orange translucide */
+  color: var(--neon-orange) !important;
+  border-bottom: 1px solid rgba(255, 107, 0, 0.3) !important;
+  font-weight: 700 !important;
+}
+
+.login-box td,
+.login-container td {
+  background-color: transparent !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.login-box tr:hover td,
+.login-container tr:hover td {
+  background-color: rgba(0, 230, 118, 0.1) !important; /* Surlignage vert émeraude au survol */
+}
+
+/* =====================================================================
+   EN-TÊTE D'ACCUEIL (HERO HEADER)
+===================================================================== */
+
+/* Alignement vertical du conteneur */
+.login-container {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 40px 20px !important;
+}
+
+/* Bloc Texte Supérieur */
+.hero-header {
+  text-align: center;
+  max-width: 720px;
+  margin-bottom: 32px;
+  animation: fadeInDown 0.6s ease-out;
+}
+
+.hero-title {
+  font-size: 2rem !important;
+  font-weight: 800 !important;
+  color: #ffffff !important;
+  margin-bottom: 10px !important;
+  letter-spacing: -0.02em;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+.hero-subtitle {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 18px;
+  font-weight: 400;
+}
+
+/* Liste des fonctionnalités (Tags) */
+.hero-tags {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 0.9rem;
+}
+
+.hero-tags .tag {
+  color: var(--neon-orange);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 107, 0, 0.1);
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 107, 0, 0.25);
+  backdrop-filter: blur(8px);
+}
+
+.hero-tags .tag i {
+  font-size: 0.85rem;
+}
+
+.hero-tags .tag-dot {
+  color: var(--neon-green);
+  font-weight: 800;
+  opacity: 0.8;
+}
+
+/* Animation douce à l'apparition */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ajustement pour mobile */
+@media (max-width: 600px) {
+  .hero-title {
+    font-size: 1.4rem !important;
+  }
+  .hero-subtitle {
+    font-size: 0.9rem;
+  }
+  .hero-tags .tag-dot {
+    display: none; /* Masque les puces sur petits écrans */
+  }
 }

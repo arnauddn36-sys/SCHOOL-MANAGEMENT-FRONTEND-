@@ -1,139 +1,355 @@
 /* =====================================================================
-   ADMIN.CSS
-   Tableau de bord administrateur : sidebar façon "classeur" avec un
-   onglet coloré par module, et zone de contenu qui affiche chaque
-   section (utilisateurs, élèves, professeurs, matières, notes, absences,
-   statistiques) sans recharger la page.
+   ADMIN.CSS - DASHBOARD NÉON FULLSCREEN
+   Tableau de bord administrateur avec sidebar à gauche, profil + déconnexion
+   en haut à droite, et zone de contenu occupant 100% de la largeur.
 ===================================================================== */
 
-.admin-header {
-    background-color: var(--ink);   /* Header en bleu-encre pour trancher avec le papier */
-    color: var(--white);              /* Texte blanc sur fond sombre */
-}
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
-.admin-header h1 {
-    color: var(--white);         /* Le titre du header reste blanc */
-    font-size: 20px;               /* Taille plus discrète que sur la page de login */
-}
+:root {
+  --neon-orange: #ff6b00;
+  --neon-green: #00e676;
+  --bg-dark: #080c14;
+  --bg-sidebar: rgba(13, 21, 39, 0.9);
+  --bg-card: rgba(15, 23, 42, 0.75);
+  
+  --text-main: #ffffff;
+  --text-muted: #94a3b8;
+  --border: rgba(255, 255, 255, 0.12);
+  
+  --orange-glow: rgba(255, 107, 0, 0.35);
+  --green-glow: rgba(0, 230, 118, 0.35);
 
-.admin-info {
-    display: flex;         /* Aligne le nom et le bouton de déconnexion */
-    align-items: center;    /* Centrage vertical */
-    gap: 16px;               /* Espace entre le nom et le bouton */
-}
-
-.admin-info span {
-    font-family: var(--font-mono); /* Le nom de l'utilisateur en police mono, sobre */
-    font-size: 13px;                 /* Petite taille */
-    opacity: 0.85;                     /* Légèrement estompé */
-}
-
-#logout {
-    background-color: transparent;       /* Bouton discret sur le header sombre */
-    border: 1px solid rgba(255,255,255,0.3); /* Fine bordure claire */
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* =========================
-   MISE EN PAGE GENERALE
+   STRUCTURE GLOBALE LAYOUT
 ========================= */
 
-.admin-container {
-    display: grid;                        /* Grille à deux colonnes */
-    grid-template-columns: 260px 1fr;      /* Sidebar fixe + contenu flexible */
-    align-items: start;                     /* Le contenu ne s'étire pas inutilement */
-    min-height: calc(100vh - 73px);          /* Occupe le reste de l'écran sous le header */
-    padding: 0;                               /* Pas de padding ici, géré par les enfants */
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: 
+    radial-gradient(circle at 10% 20%, var(--orange-glow) 0%, transparent 45%),
+    radial-gradient(circle at 90% 80%, var(--green-glow) 0%, transparent 45%),
+    #080c14;
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100vw;
 }
 
 /* =========================
    SIDEBAR / MENU ADMIN
 ========================= */
 
-.admin-menu {
-    background-color: var(--white);        /* Fond blanc du menu */
-    border-right: 1px solid var(--paper-line); /* Ligne de séparation façon reliure */
-    padding: 26px 16px;                       /* Espace intérieur */
-    position: sticky;                          /* Reste visible pendant le défilement */
-    top: 0;                                     /* Collé en haut de la zone visible */
+.admin-sidebar {
+  width: 280px;
+  min-width: 280px;
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border);
+  padding: 32px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  backdrop-filter: blur(15px);
+  z-index: 10;
 }
 
-.admin-menu h2 {
-    font-size: 12px;                 /* Petit titre de menu */
-    text-transform: uppercase;        /* En majuscules façon étiquette */
-    letter-spacing: 0.08em;            /* Espacement des lettres */
-    color: var(--ink-soft);             /* Couleur discrète */
-    padding: 0 12px;                     /* Aligné avec les boutons du menu */
-    margin-bottom: 14px;                  /* Espace avant la liste */
+/* Titre SCHOOL MANAGEMENT en majuscules */
+.sidebar-brand {
+  font-size: 1.15rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 35px;
+  letter-spacing: 1.5px;
+  color: var(--neon-orange);
+  text-shadow: 0 0 12px var(--orange-glow);
+  text-transform: uppercase !important;
+}
+
+.sidebar-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  margin-bottom: 14px;
+  padding-left: 8px;
 }
 
 .admin-menu ul {
-    list-style: none; /* Pas de puces sur la liste */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .admin-menu li {
-    margin-bottom: 6px; /* Petit espace entre chaque entrée de menu */
+  width: 100%;
 }
 
-/* Chaque bouton du menu a un "onglet" coloré à gauche, comme un classeur à intercalaires */
 .admin-menu button {
-    width: 100%;                       /* Le bouton occupe toute la largeur de la sidebar */
-    display: flex;                       /* Permet d'aligner le texte facilement */
-    align-items: center;                   /* Centrage vertical du texte */
-    justify-content: flex-start;             /* Texte aligné à gauche */
-    background-color: transparent;             /* Pas de fond par défaut */
-    color: var(--ink);                           /* Texte en couleur encre */
-    font-weight: 500;                              /* Poids normal (pas trop appuyé) */
-    padding: 11px 12px;                              /* Espace intérieur du bouton */
-    border-radius: 8px;                                /* Coins arrondis */
-    border-left: 4px solid transparent;                 /* Emplacement réservé à l'onglet coloré */
-    transition: background-color 0.15s ease, border-color 0.15s ease; /* Transition douce */
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  padding: 13px 16px;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-left: 4px solid transparent;
 }
 
 .admin-menu button:hover {
-    background-color: #f6f2e6; /* Léger fond crème au survol */
-    transform: none;             /* On annule l'effet de décollement générique des boutons */
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateX(4px);
 }
 
-/* État actif : la section actuellement affichée est mise en évidence */
 .admin-menu button.active {
-    background-color: #f6f2e6; /* Fond crème pour la section active */
-    font-weight: 600;            /* Texte plus appuyé */
+  background: linear-gradient(135deg, var(--neon-orange) 0%, #d45200 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 18px var(--orange-glow);
+  font-weight: 700;
+  border: none;
 }
 
-/* Chaque module a sa propre couleur d'onglet, comme des intercalaires de classeur */
-.admin-menu button[data-panel="users"]     { border-left-color: var(--accent-gold); }
-.admin-menu button[data-panel="students"]  { border-left-color: var(--accent-green); }
-.admin-menu button[data-panel="teachers"]  { border-left-color: var(--accent-blue); }
-.admin-menu button[data-panel="subjects"]  { border-left-color: #8a5fb0; }
-.admin-menu button[data-panel="grades"]    { border-left-color: var(--accent-red); }
-.admin-menu button[data-panel="absences"]  { border-left-color: #c97a3d; }
-.admin-menu button[data-panel="stats"]     { border-left-color: var(--ink); }
+/* Couleurs personnalisées par onglet */
+.admin-menu button[data-panel="stats"]     { border-left-color: var(--neon-orange); }
+.admin-menu button[data-panel="users"]     { border-left-color: #3b82f6; }
+.admin-menu button[data-panel="students"]  { border-left-color: var(--neon-green); }
+.admin-menu button[data-panel="teachers"]  { border-left-color: #a855f7; }
+.admin-menu button[data-panel="subjects"]  { border-left-color: #ec4899; }
+.admin-menu button[data-panel="grades"]    { border-left-color: #eab308; }
+.admin-menu button[data-panel="absences"]  { border-left-color: #ef4444; }
 
 /* =========================
-   CONTENU PRINCIPAL
+   MAIN AREA & TOP BAR
 ========================= */
 
-.admin-content {
-    padding: 30px 40px; /* Espace intérieur de la zone de contenu */
+.admin-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 40px 40px 40px;
+  width: calc(100vw - 280px);
 }
 
-/* Barre d'actions au-dessus des tableaux (bouton "Ajouter", recherche, etc.) */
+/* Barre supérieure : Profil + Déconnexion en haut à droite */
+.top-bar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--bg-card);
+  padding: 8px 20px;
+  border-radius: 30px;
+  border: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+}
+
+.user-profile i.fa-circle-user {
+  font-size: 1.4rem;
+  color: var(--neon-orange);
+}
+
+.user-name {
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 0.95rem;
+}
+
+.btn-logout, #logout {
+  background: linear-gradient(135deg, #00e676 0%, #00b0ff 100%) !important;
+  color: #000000 !important;
+  font-weight: 800 !important;
+  border: none !important;
+  padding: 8px 18px !important;
+  border-radius: 20px !important;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 0 12px var(--green-glow);
+}
+
+.btn-logout:hover, #logout:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px var(--green-glow);
+}
+
+/* =========================
+   ZONE DE CONTENU PLEINE LARGEUR
+========================= */
+
+.admin-content, #content {
+  width: 100% !important;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Barre de titre et d'actions (Toolbar) */
 .panel-toolbar {
-    display: flex;              /* Aligne les éléments horizontalement */
-    justify-content: space-between; /* Titre à gauche, actions à droite */
-    align-items: center;             /* Centrage vertical */
-    margin-bottom: 18px;              /* Espace avant le tableau */
-    flex-wrap: wrap;                    /* Passe à la ligne sur petit écran */
-    gap: 12px;                            /* Espace si ça passe à la ligne */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-card);
+  padding: 20px 28px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(15px);
+  width: 100%;
 }
 
-/* Ligne d'actions (modifier / supprimer) dans une cellule de tableau */
+.panel-toolbar h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+/* Boutons d'actions dans les panneaux */
+.panel-toolbar button, 
+button.btn-add {
+  background: linear-gradient(135deg, var(--neon-orange) 0%, var(--neon-green) 100%);
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 4px 15px var(--orange-glow);
+}
+
+.panel-toolbar button:hover, 
+button.btn-add:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--green-glow);
+}
+
+/* =========================
+   CARTES DE STATISTIQUES (VUE D'ENSEMBLE)
+========================= */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.stat-card {
+  background: var(--bg-card);
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 107, 0, 0.4);
+  box-shadow: 0 12px 35px var(--orange-glow);
+}
+
+.stat-card .stat-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.stat-card .stat-value {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--neon-green);
+}
+
+/* =========================
+   TABLEAUX FULLSCREEN
+========================= */
+
+table {
+  width: 100% !important;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  overflow: hidden;
+  backdrop-filter: blur(15px);
+}
+
+th {
+  background-color: rgba(255, 107, 0, 0.12);
+  color: var(--neon-orange);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 800;
+  padding: 18px 24px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+td {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.95rem;
+  color: #ffffff;
+}
+
+tr:hover td {
+  background-color: rgba(0, 230, 118, 0.06);
+}
+
 .row-actions {
-    display: flex;   /* Aligne les boutons côte à côte */
-    gap: 8px;          /* Petit espace entre les boutons */
+  display: flex;
+  gap: 8px;
 }
 
 .row-actions button {
-    padding: 7px 12px; /* Boutons plus compacts dans les tableaux */
-    font-size: 13px;     /* Texte légèrement plus petit */
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  border-radius: 8px;
 }

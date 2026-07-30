@@ -6,8 +6,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Dashboard Administrateur — School Management</title>
+    <title>Dashboard Administrateur — SCHOOL MANAGEMENT</title>
 
+    <!-- FontAwesome pour les icônes néon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Styles CSS -->
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/admin.css">
 
@@ -15,40 +19,54 @@
 
 <body>
 
-    <header class="admin-header">
+    <div class="admin-layout">
 
-        <h1>School Management</h1>
+        <!-- SIDEBAR GAUCHE -->
+        <aside class="admin-sidebar">
+            <div>
+                <!-- Titre en MAJUSCULES -->
+                <div class="sidebar-brand">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>SCHOOL MANAGEMENT</span>
+                </div>
 
-        <div class="admin-info">
-            <span id="admin-name">Administrateur</span>
-            <button id="logout">Déconnexion</button>
-        </div>
+                <p class="sidebar-label">MENU</p>
 
-    </header>
-
-    <main class="admin-container">
-
-        <!-- MENU ADMIN : chaque bouton porte un data-panel utilisé par admin.js -->
-        <aside class="admin-menu">
-
-            <h2>Menu</h2>
-
-            <ul>
-                <li><button data-panel="stats">Vue d'ensemble</button></li>
-                <li><button data-panel="users">Utilisateurs</button></li>
-                <li><button data-panel="students">Élèves</button></li>
-                <li><button data-panel="teachers">Professeurs</button></li>
-                <li><button data-panel="subjects">Matières</button></li>
-                <li><button data-panel="grades">Notes</button></li>
-                <li><button data-panel="absences">Absences</button></li>
-            </ul>
-
+                <!-- MENU ADMIN : attributs data-panel conservés pour admin.js -->
+                <nav class="admin-menu">
+                    <ul>
+                        <li><button data-panel="stats" class="active"><i class="fa-solid fa-chart-pie"></i> Vue d'ensemble</button></li>
+                        <li><button data-panel="users"><i class="fa-solid fa-users"></i> Utilisateurs</button></li>
+                        <li><button data-panel="students"><i class="fa-solid fa-user-graduate"></i> Élèves</button></li>
+                        <li><button data-panel="teachers"><i class="fa-solid fa-chalkboard-user"></i> Professeurs</button></li>
+                        <li><button data-panel="subjects"><i class="fa-solid fa-book"></i> Matières</button></li>
+                        <li><button data-panel="grades"><i class="fa-solid fa-file-pen"></i> Notes</button></li>
+                        <li><button data-panel="absences"><i class="fa-solid fa-user-clock"></i> Absences</button></li>
+                    </ul>
+                </nav>
+            </div>
         </aside>
 
-        <!-- CONTENU PRINCIPAL : rempli dynamiquement par les panneaux JS -->
-        <section class="admin-content" id="content"></section>
+        <!-- ZONE PRINCIPALE -->
+        <main class="admin-main">
 
-    </main>
+            <!-- EN-TÊTE SUPÉRIEUR (PROFIL + DÉCONNEXION EN HAUT À DROITE) -->
+            <header class="top-bar">
+                <div class="user-profile">
+                    <i class="fa-solid fa-circle-user"></i>
+                    <span id="admin-name" class="user-name">Administrateur</span>
+                    <button id="logout" class="btn-logout">
+                        <i class="fa-solid fa-power-off"></i> Déconnexion
+                    </button>
+                </div>
+            </header>
+
+            <!-- CONTENU PRINCIPAL (OCCUPE 100% DE LA LARGEUR DISPONIBLE) -->
+            <section class="admin-content" id="content"></section>
+
+        </main>
+
+    </div>
 
     <!-- Un seul point d'entrée module : il importe lui-même tous les panneaux nécessaires -->
     <script type="module" src="../js/admin.js"></script>

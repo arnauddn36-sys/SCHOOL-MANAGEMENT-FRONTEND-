@@ -1,258 +1,339 @@
-/* =====================================================================
-   GLOBAL.CSS
-   Design system commun à toutes les pages : couleurs, typographies,
-   boutons, tableaux, formulaires, cartes. Le thème s'inspire du cahier
-   d'école (papier crème, filet rouge de marge, encre bleu nuit) mais
-   avec une exécution sobre et actuelle plutôt que rétro.
-===================================================================== */
+/* ==========================================================================
+   SCHOOL MANAGEMENT - LAYOUT FULLSCREEN NÉON (PRO & ÉQUILIBRÉ)
+   ========================================================================== */
 
-/* Import des polices : Fraunces (titres), Inter (texte), IBM Plex Mono (chiffres/identifiants) */
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 :root {
-    /* ---- Couleurs de la charte ---- */
-    --ink: #1c2a3a;          /* Bleu-encre profond : sidebar, header, titres */
-    --ink-soft: #52627a;     /* Bleu-gris : texte secondaire */
-    --paper: #faf6ec;        /* Papier crème : fond de page */
-    --paper-line: #e6ddc6;   /* Ligne de cahier : bordures discrètes */
-    --white: #ffffff;        /* Blanc pur : cartes et champs */
-    --accent-red: #c1443c;   /* Rouge stylo : accents, alertes, marge */
-    --accent-green: #4f7a63; /* Vert sauge : succès, validation */
-    --accent-gold: #c99a3d;  /* Or/craie : mise en valeur, statistiques */
-    --accent-blue: #3b6ea5;  /* Bleu ardoise : lien secondaire */
+  /* Dynamic Neon Palette */
+  --neon-orange: #ff6b00;
+  --neon-green: #00e676;
+  --white-pure: #ffffff;
+  
+  /* Sombres & Transparences */
+  --bg-dark: #080c14;
+  --bg-sidebar: rgba(13, 21, 39, 0.85);
+  --bg-card: rgba(15, 23, 42, 0.75);
+  
+  --text-main: #ffffff;
+  --text-muted: #94a3b8;
+  --border: rgba(255, 255, 255, 0.12);
+  
+  /* Glows */
+  --orange-glow: rgba(255, 107, 0, 0.35);
+  --green-glow: rgba(0, 230, 118, 0.35);
 
-    /* ---- Typographie ---- */
-    --font-display: "Fraunces", serif;      /* Police des titres */
-    --font-body: "Inter", sans-serif;       /* Police du texte courant */
-    --font-mono: "IBM Plex Mono", monospace; /* Police des identifiants/chiffres */
+  /* Status Colors */
+  --success-bg: rgba(0, 230, 118, 0.15);
+  --success-text: #00e676;
+  --danger-bg: rgba(239, 68, 68, 0.15);
+  --danger-text: #f87171;
 
-    /* ---- Rayons et ombres ---- */
-    --radius: 10px;                                  /* Arrondi standard des cartes/boutons */
-    --shadow: 0 6px 20px rgba(28, 42, 58, 0.08); 
-      /* Ombre douce sous les cartes */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* =========================
-   RESET GENERAL
-========================= */
-
-* {
-    margin: 0;              /* On enlève les marges par défaut du navigateur */
-    padding: 0;              /* On enlève les paddings par défaut du navigateur */
-    box-sizing: border-box;  /* Les paddings/bordures sont inclus dans la largeur/hauteur */
-}
-
-html {
-    scroll-behavior: smooth; /* Défilement doux lors des ancrages internes */
+/* 1. Base Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    font-family: var(--font-body);  /* Police de texte par défaut */
-    background-color: var(--paper); /* Fond "papier" sur toutes les pages */
-    color: var(--ink);               /* Couleur de texte par défaut */
-    min-height: 100vh;                /* La page occupe au moins toute la hauteur d'écran */
-    line-height: 1.5;                 /* Interligne confortable pour la lecture */
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  line-height: 1.6;
+  min-height: 100vh;
+  background: 
+    radial-gradient(circle at 10% 20%, var(--orange-glow) 0%, transparent 45%),
+    radial-gradient(circle at 90% 80%, var(--green-glow) 0%, transparent 45%),
+    #080c14;
+  background-attachment: fixed;
+  overflow-x: hidden;
 }
 
-/* Respecte la préférence utilisateur "réduire les animations" */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;    /* Quasiment aucune animation */
-        transition-duration: 0.01ms !important;    /* Quasiment aucune transition */
-    }
+/* 2. Dispositions Principales (Full Screen Layout) */
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100vw;
 }
 
-/* =========================
-   TITRES
-========================= */
-
-h1, h2, h3 {
-    font-family: var(--font-display); /* Les titres utilisent la police serif de caractère */
-    font-weight: 600;                  /* Graisse mi-forte pour un rendu élégant */
-    color: var(--ink);                 /* Titres en encre foncée */
+/* --- Navigation latérale (Sidebar fixe & bien proportionnée) --- */
+.admin-sidebar {
+  width: 280px;
+  min-width: 280px;
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border);
+  color: #ffffff;
+  padding: 32px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 4px 0 25px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(15px);
+  z-index: 10;
 }
 
-h1 { font-size: 26px; letter-spacing: -0.01em; } /* Grand titre de page */
-h2 { font-size: 20px; margin-bottom: 18px; }      /* Titre de section */
-h3 { font-size: 16px; margin-bottom: 6px; }        /* Petit titre de carte */
-
-p  { color: var(--ink-soft); } /* Les paragraphes utilisent une teinte plus douce */
-
-/* =========================
-   FOCUS CLAVIER (accessibilité)
-========================= */
-
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-select:focus-visible {
-    outline: 3px solid var(--accent-blue); /* Contour visible au clavier */
-    outline-offset: 2px;                    /* Petit espace entre l'élément et le contour */
+/* Marque / Titre Application */
+.sidebar-brand {
+  font-size: 1.25rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 30px;
+  letter-spacing: 1.5px;
+  color: var(--neon-orange);
+  text-shadow: 0 0 10px var(--orange-glow);
+  text-transform: uppercase;
 }
 
-/* =========================
-   BOUTONS GENERAUX
-========================= */
-
-button {
-    font-family: var(--font-body);     /* Police cohérente avec le reste du texte */
-    border: none;                       /* Pas de bordure par défaut */
-    padding: 11px 18px;                 /* Espace intérieur confortable */
-    border-radius: 8px;                 /* Coins arrondis doux */
-    cursor: pointer;                    /* Curseur "main" au survol */
-    background-color: var(--ink);       /* Fond bleu-encre par défaut */
-    color: var(--white);                /* Texte blanc */
-    font-size: 14px;                    /* Taille de texte lisible */
-    font-weight: 500;                   /* Légèrement en gras */
-    transition: transform 0.15s ease, opacity 0.15s ease; /* Petite animation au survol */
+.sidebar-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+  padding-left: 8px;
 }
 
-button:hover {
-    opacity: 0.88;              /* Assombrit légèrement le bouton au survol */
-    transform: translateY(-1px); /* Léger décollement pour donner du relief */
+/* Menu de navigation */
+.admin-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-button:active {
-    transform: translateY(0); /* Le bouton "s'enfonce" au clic */
+.admin-menu button {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  padding: 13px 18px;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-/* Variante bouton discret (annuler, secondaire) */
-button.secondary {
-    background-color: var(--white);         /* Fond blanc */
-    color: var(--ink);                        /* Texte foncé */
-    border: 1px solid var(--paper-line);      /* Bordure fine couleur cahier */
+.admin-menu button:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateX(4px);
 }
 
-/* Variante bouton danger (suppression) */
+.admin-menu button.active {
+  background: linear-gradient(135deg, var(--neon-orange) 0%, #d45200 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 18px var(--orange-glow);
+  font-weight: 700;
+  border: none;
+}
+
+/* --- Zone Principale (S'étend sur tout l'espace disponible) --- */
+.admin-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 40px;
+  overflow-y: auto;
+  width: calc(100vw - 280px);
+}
+
+/* En-tête Supérieur : Profil Utilisateur & Action Déconnexion */
+.user-header-bar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 30px;
+  background: var(--bg-card);
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+}
+
+.user-profile-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.user-profile-info i {
+  color: var(--neon-orange);
+  font-size: 1.2rem;
+}
+
+/* Conteneur Dynamique de Contenu (Occupe 100% de la largeur) */
+#content {
+  width: 100% !important;
+  max-width: 100% !important; /* Débloque la restriction de largeur */
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* 3. Composants de Panneau & Tableaux fluides */
+
+/* Barre de Titre de Section (Ex: "Gestion des absences") */
+.panel-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-card);
+  padding: 22px 30px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(15px);
+  width: 100%;
+}
+
+.panel-toolbar h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+/* Boutons d'Action (Ajouter, Supprimer...) */
+button:not(.admin-menu button) {
+  background: linear-gradient(135deg, var(--neon-orange) 0%, var(--neon-green) 100%);
+  color: #ffffff;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 4px 15px var(--orange-glow);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+button:not(.admin-menu button):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--green-glow);
+}
+
 button.danger {
-    background-color: var(--accent-red); /* Fond rouge stylo */
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
 }
 
-/* =========================
-   FORMULAIRES
-========================= */
-
-form {
-    display: flex;             /* Empile les champs verticalement */
-    flex-direction: column;    /* Direction verticale */
-    gap: 14px;                  /* Espace régulier entre chaque champ */
-    max-width: 420px;           /* Largeur raisonnable pour la lisibilité */
-}
-
-label {
-    font-size: 13px;             /* Petite étiquette au-dessus du champ */
-    font-weight: 600;             /* Légèrement en gras pour se distinguer */
-    color: var(--ink-soft);       /* Couleur douce */
-    margin-bottom: -6px;          /* Rapproche l'étiquette de son champ */
-}
-
-input, select {
-    font-family: var(--font-body); /* Police cohérente */
-    padding: 11px 14px;              /* Espace intérieur du champ */
-    border-radius: 8px;              /* Coins arrondis */
-    border: 1px solid var(--paper-line); /* Bordure couleur "ligne de cahier" */
-    background-color: var(--white);   /* Fond blanc du champ */
-    font-size: 14px;                   /* Taille de texte lisible */
-    color: var(--ink);                  /* Couleur du texte saisi */
-}
-
-input:focus, select:focus {
-    border-color: var(--accent-blue); /* La bordure devient bleue au focus */
-}
-
-/* =========================
-   CARTES
-========================= */
-
-.card {
-    background-color: var(--white); /* Fond blanc de la carte */
-    padding: 20px;                    /* Espace intérieur */
-    border-radius: var(--radius);     /* Coins arrondis standard */
-    box-shadow: var(--shadow);         /* Ombre douce */
-    border-left: 4px solid var(--accent-gold); /* Filet coloré façon onglet de classeur */
-}
-
-.cards {
-    display: grid;                                       /* Grille responsive */
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Colonnes qui s'adaptent */
-    gap: 16px;                                             /* Espace entre les cartes */
-    margin-top: 10px;                                       /* Petit espace au-dessus */
-}
-
-/* =========================
-   TABLEAUX (style registre / cahier de notes)
-========================= */
-
+/* Tableaux Pleine Largeur */
 table {
-    width: 100%;                        /* Le tableau occupe toute la largeur disponible */
-    border-collapse: collapse;          /* Fusionne les bordures pour un rendu net */
-    background-color: var(--white);     /* Fond blanc du tableau */
-    border-radius: var(--radius);       /* Coins arrondis */
-    overflow: hidden;                    /* Les coins arrondis coupent le contenu qui dépasse */
-    box-shadow: var(--shadow);            /* Légère ombre pour détacher le tableau du fond */
+  width: 100% !important;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  backdrop-filter: blur(15px);
 }
 
-thead {
-    background-color: var(--ink); /* En-tête en bleu-encre, comme une page de garde */
+th {
+  background-color: rgba(255, 107, 0, 0.12);
+  color: var(--neon-orange);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 800;
+  padding: 18px 24px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
 }
 
-thead th {
-    color: var(--white);       /* Texte blanc sur l'en-tête sombre */
-    text-align: left;           /* Alignement à gauche */
-    padding: 13px 16px;          /* Espace intérieur confortable */
-    font-size: 12px;             /* Petite taille */
-    text-transform: uppercase;   /* Majuscules pour un effet "étiquette" */
-    letter-spacing: 0.04em;       /* Espacement des lettres pour la lisibilité en majuscules */
+td {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.95rem;
+  color: #ffffff;
 }
 
-tbody td {
-    padding: 12px 16px;                        /* Espace intérieur des cellules */
-    border-bottom: 1px solid var(--paper-line); /* Ligne fine façon cahier réglé */
-    font-size: 14px;                             /* Taille de texte lisible */
+tr:last-child td {
+  border-bottom: none;
 }
 
-tbody tr:last-child td {
-    border-bottom: none; /* Pas de ligne après la dernière rangée */
+tr:hover td {
+  background-color: rgba(0, 230, 118, 0.06);
 }
 
-tbody tr:hover {
-    background-color: #fbf9f2; /* Léger surlignage au survol de la ligne */
-}
-
-/* Les nombres (notes, ids, matricules) utilisent la police mono pour un alignement net */
-td.mono, span.mono {
-    font-family: var(--font-mono);
-}
-
-/* Petite pastille colorée pour les statuts (ex: "Justifié" / "Non-justifié") */
+/* Badges Statut */
 .badge {
-    display: inline-block;      /* Permet le padding autour du texte */
-    padding: 4px 10px;            /* Espace intérieur de la pastille */
-    border-radius: 999px;         /* Forme de pilule */
-    font-size: 12px;               /* Petite taille de texte */
-    font-weight: 600;               /* Texte en gras */
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border: 1px solid #ef4444;
 }
 
-.badge.ok    { background: #e8f0ea; color: var(--accent-green); } /* Statut positif */
-.badge.warn  { background: #f7e9e8; color: var(--accent-red); }    /* Statut négatif */
-
-/* =========================
-   CONTENU PRINCIPAL
-========================= */
-
-main {
-    padding: 30px 40px; /* Espacement autour du contenu principal */
+.badge.ok {
+  background-color: var(--success-bg);
+  color: var(--success-text);
+  border: 1px solid var(--neon-green);
 }
 
-/* =========================
-   ETATS VIDES / CHARGEMENT
-========================= */
+/* Formulaires */
+form {
+  background: var(--bg-card);
+  padding: 36px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  backdrop-filter: blur(15px);
+}
 
-.empty-state {
-    background: var(--white);           /* Fond blanc comme une carte */
-    border: 1px dashed var(--paper-line); /* Bordure en pointillés façon brouillon */
-    border-radius: var(--radius);         /* Coins arrondis */
-    padding: 30px;                          /* Espace intérieur généreux */
-    text-align: center;                      /* Texte centré */
-    color: var(--ink-soft);                   /* Texte discret */
+form label {
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--neon-orange);
+}
+
+form input, form select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  outline: none;
+  transition: var(--transition);
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+form input:focus, form select:focus {
+  border-color: var(--neon-green);
+  box-shadow: 0 0 15px var(--green-glow);
 }
