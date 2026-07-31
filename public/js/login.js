@@ -18,6 +18,8 @@ loginForm.addEventListener("submit", async function (event) {
 
     errorBox.hidden = true; // On masque une éventuelle erreur précédente
 
+    
+
     // Récupération des valeurs saisies par l'utilisateur
     const nom = document.getElementById("nom").value.trim();
     const prenom = document.getElementById("prenom").value.trim();
@@ -51,6 +53,6 @@ loginForm.addEventListener("submit", async function (event) {
     } catch (error) {
 
         console.error("Erreur connexion :", error);
-        showError("Impossible de contacter le serveur.");
+        showError("Nom ou mot de passe incorrect.");
     }
 });

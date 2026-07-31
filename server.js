@@ -86,7 +86,7 @@ app.get("/", (req, res) => {
 const PORT = 3000;
 
 app.listen(PORT, "0.0.0.0", () => {
-
-    console.log(`Serveur lancé sur le port: http://localhost:${PORT}`);
-
+    console.log(`Serveur prêt :`);
+    console.log(`- Sur ton PC  : http://localhost:${PORT}`);
+    console.log(`- Sur ton tel :http://10.0.0.14:3${PORT}`);
 });

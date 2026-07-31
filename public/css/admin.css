@@ -353,3 +353,129 @@ tr:hover td {
   font-size: 0.85rem;
   border-radius: 8px;
 }
+
+/* =====================================================================
+   RESPONSIVE DESIGN (MOBILES ET TABLETTES)
+===================================================================== */
+
+/* 1. Tablettes & Petits Écrans (≤ 1024px) */
+@media (max-width: 1024px) {
+  .admin-layout {
+    flex-direction: column; /* La sidebar passe au-dessus du contenu */
+  }
+
+  .admin-sidebar {
+    width: 100% !important;
+    min-width: 100% !important;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 16px 20px;
+  }
+
+  .admin-sidebar > div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .sidebar-brand {
+    margin-bottom: 10px;
+  }
+
+  .admin-menu ul {
+    display: flex;
+    flex-direction: row; /* Aligne les boutons du menu horizontalement */
+    overflow-x: auto;   /* Fait défiler le menu s'il y a trop d'onglets */
+    padding-bottom: 8px;
+    gap: 8px;
+  }
+
+  .admin-menu li {
+    width: auto;
+    flex-shrink: 0;
+  }
+
+  .admin-menu button {
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    border-left: none;
+    border-bottom: 3px solid transparent; /* Onglet passe en bas sur mobile */
+  }
+
+  .admin-menu button.active {
+    border-bottom-color: var(--neon-orange);
+  }
+
+  .admin-main {
+    width: 100% !important;
+    padding: 20px 16px;
+  }
+}
+
+/* 2. Mobiles (≤ 600px) */
+@media (max-width: 600px) {
+  /* Header mobile */
+  .top-bar {
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .user-profile {
+    width: 100%;
+    justify-content: space-between;
+    padding: 8px 14px;
+  }
+
+  .user-name {
+    font-size: 0.85rem;
+  }
+
+  .btn-logout, #logout {
+    padding: 6px 12px !important;
+    font-size: 0.8rem !important;
+  }
+
+  /* Cartes de statistiques responsive */
+  .stats-grid {
+    grid-template-columns: 1fr; /* Une seule carte par ligne sur mobile */
+    gap: 14px;
+  }
+
+  .stat-card {
+    padding: 16px;
+  }
+
+  .stat-card .stat-value {
+    font-size: 1.8rem;
+  }
+
+  /* Toolbar du panneau */
+  .panel-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .panel-toolbar button, button.btn-add {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Rend tous les tableaux défilables horizontalement sans déformer l'écran */
+  #content {
+    overflow-x: auto;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  th, td {
+    padding: 12px 14px;
+    font-size: 0.85rem;
+  }
+}
